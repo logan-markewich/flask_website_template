@@ -23,7 +23,7 @@ def signUp():
     #validate values from ui
     if _name and _email and _password:
         return json.dumps({'html':'<span>All fields good !!</span>'})
-    else
+    else:
         return json.dumps({'html':'<span>Enter the required fields</span>'})
 
     
