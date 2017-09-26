@@ -20,6 +20,10 @@ def main():
 def showSignUp():
     return render_template('signup.html')
 
+@app.route('/showSignin')
+def showSignin():
+	return render_template('signin.html')
+
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
     try:
