@@ -1,5 +1,5 @@
 from flask import Flask, render_template, json, request
-from flask.ext.mysql import MySQL
+from flask_mysql import MySQL
 from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
@@ -31,7 +31,7 @@ def signUp():
         if _name and _email and _password:
             
             # All Good, let's call MySQL
-            
+            print(_name, _email, _password)
             conn = mysql.connect()
             cursor = conn.cursor()
             _hashed_password = generate_password_hash(_password)
