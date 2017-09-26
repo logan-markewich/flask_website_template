@@ -20,6 +20,7 @@ def signUp():
  
     # validate the received values
     if _name and _email and _password:
+        print _name, _email, _password
         return json.dumps({'html':'<span>All fields good !!</span>'})
     else:
         return json.dumps({'html':'<span>Enter the required fields</span>'})
