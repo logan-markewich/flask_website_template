@@ -1,7 +1,4 @@
-from flask import Flask
-from flask import render_template
-from flask import json
-from flask import request
+from flask import Flask, render_template, json, request
 
 app = Flask(__name__)
 
@@ -15,12 +12,13 @@ def showSignUp():
 
 @app.route('/signUp',methods=['POST'])
 def signUp():
-    #read in values from ui
+ 
+    # read the posted values from the UI
     _name = request.form['inputName']
     _email = request.form['inputEmail']
     _password = request.form['inputPassword']
-    
-    #validate values from ui
+ 
+    # validate the received values
     if _name and _email and _password:
         return json.dumps({'html':'<span>All fields good !!</span>'})
     else:
