@@ -85,7 +85,7 @@ def validateLogin():
                 session['user'] = data[0][0]
                 return redirect('/userHome')
             else:
-                return render_template('error.html',error = 'Wrong Email address or Password.')
+                return render_template('error.html',error = 'Wrong Password.')
         else:
             return render_template('error.html',error = 'Wrong Email address or Password.')
  
