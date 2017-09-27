@@ -146,7 +146,7 @@ def getWish():
             
             wishes_dict = []
             for wish in wishes:
-                if wish[1] != "My wish"
+                if wish[1] != "My wish":
                     Wish_dict = {
                         'Id': wish[0],
                         'Title': wish[1],
