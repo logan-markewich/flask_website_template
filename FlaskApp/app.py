@@ -37,6 +37,10 @@ def logout():
     session.pop('user',None)
     return redirect('/')
 
+@app.route('/showAddWish')
+def showAddWish():
+    return render_templae('addWish.html')
+
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
     try:
