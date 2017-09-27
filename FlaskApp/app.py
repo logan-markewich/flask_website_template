@@ -122,7 +122,7 @@ def addWish():
         cursor.callproc('sp_addWish',(_title,_description,_user))
         data = cursor.fetchall()
         
-        if len(data) > 0:
+        if len(data) is 0:
             conn.commit()
             return redirect('/userHome')
         else:
