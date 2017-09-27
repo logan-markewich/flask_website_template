@@ -1,9 +1,10 @@
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request, session
 from flaskext.mysql import MySQL
 from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
 app = Flask(__name__)
+app.secret_key = 'why would I tell you my secret key?'
 
 #configure sql connection
 app.config['MYSQL_DATABASE_USER'] = 'cmpt370_rdynam'
@@ -26,7 +27,10 @@ def showSignin():
 
 @app.route('/userHome')
 def userHome():
-	return render_template('userHome.html')
+	if session.get('user'):
+		return render_template('userHome.html')
+	else:
+		return render_template('error.html',error = 'Unauthorized Access')
 
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
