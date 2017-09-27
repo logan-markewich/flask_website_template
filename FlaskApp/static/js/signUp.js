@@ -6,7 +6,6 @@ $(function() {
             data: $('form').serialize(),
             type: 'POST',
             success: function(response) {
-                $(this).closest('form').find("input[type=text], textarea").val("");
                 console.log(response);
             },
             error: function(error) {
