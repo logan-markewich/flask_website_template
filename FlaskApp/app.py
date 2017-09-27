@@ -81,6 +81,7 @@ def validateLogin():
  
  
         if len(data) > 0:
+	    print(data)
             if check_password_hash(str(data[0][3]),_password):
                 session['user'] = data[0][0]
                 return redirect('/userHome')
