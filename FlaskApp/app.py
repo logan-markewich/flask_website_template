@@ -31,6 +31,11 @@ def userHome():
 		return render_template('userHome.html')
 	else:
 		return render_template('error.html',error = 'Unauthorized Access')
+	
+@app.route('/logout')
+def logout():
+	session.pop('user',None)
+	return redirect('/')
 
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
