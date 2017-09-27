@@ -6,6 +6,7 @@ $(function() {
             data: $('form').serialize(),
             type: 'POST',
             success: function(response) {
+                $('form').val('')
                 console.log(response);
             },
             error: function(error) {
