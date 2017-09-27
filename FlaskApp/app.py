@@ -39,7 +39,7 @@ def logout():
 
 @app.route('/showAddWish')
 def showAddWish():
-    return render_templae('addWish.html')
+    return render_template('addWish.html')
 
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
