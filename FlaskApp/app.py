@@ -1,9 +1,10 @@
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request, session, redirect
 from flaskext.mysql import MySQL
 from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
 app = Flask(__name__)
+app.secret_key = 'why would I tell you my secret key?'
 
 #configure sql connection
 app.config['MYSQL_DATABASE_USER'] = 'cmpt370_rdynam'
@@ -19,6 +20,22 @@ def main():
 @app.route('/showSignUp')
 def showSignUp():
     return render_template('signup.html')
+
+@app.route('/showSignin')
+def showSignin():
+	return render_template('signin.html')
+
+@app.route('/userHome')
+def userHome():
+	if session.get('user'):
+		return render_template('userHome.html')
+	else:
+		return render_template('error.html',error = 'Unauthorized Access')
+	
+@app.route('/logout')
+def logout():
+	session.pop('user',None)
+	return redirect('/')
 
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
@@ -54,6 +71,40 @@ def signUp():
         cursor.close() 
         conn.close()
 
+@app.route('/validateLogin',methods=['POST'])
+def validateLogin():
+    try:
+        _username = request.form['inputEmail']
+        _password = request.form['inputPassword']
+ 
+ 
+ 
+        # connect to mysql
+ 
+        con = mysql.connect()
+        cursor = con.cursor()
+        cursor.callproc('sp_validateLogin',(_username,))
+        data = cursor.fetchall()
+ 
+ 
+ 
+ 
+        if len(data) > 0:
+	    print(data)
+            if check_password_hash(str(data[0][3]),_password):
+                session['user'] = data[0][0]
+                return redirect('/userHome')
+            else:
+                return render_template('error.html',error = 'Wrong Password.')
+        else:
+            return render_template('error.html',error = 'Wrong Email address or Password.')
+ 
+ 
+    except Exception as e:
+        return render_template('error.html',error = str(e))
+    finally:
+        cursor.close()
+        con.close()
     
 if __name__ == "__main__":
     app.run()
