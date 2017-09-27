@@ -23,19 +23,19 @@ def showSignUp():
 
 @app.route('/showSignin')
 def showSignin():
-	return render_template('signin.html')
+    return render_template('signin.html')
 
 @app.route('/userHome')
 def userHome():
-	if session.get('user'):
-		return render_template('userHome.html')
-	else:
-		return render_template('error.html',error = 'Unauthorized Access')
-	
+    if session.get('user'):
+        return render_template('userHome.html')
+    else:
+        return render_template('error.html',error = 'Unauthorized Access')
+
 @app.route('/logout')
 def logout():
-	session.pop('user',None)
-	return redirect('/')
+    session.pop('user',None)
+    return redirect('/')
 
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
@@ -56,11 +56,11 @@ def signUp():
             data = cursor.fetchall()
 
             if len(data) is 0:
-		print("about to commit?")
+                print("about to commit?")
                 conn.commit()
                 return json.dumps({'message':'User created successfully !'})
             else:
-		print("oops, something went wrong")
+                print("oops, something went wrong")
                 return json.dumps({'error':str(data[0])})
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
@@ -90,7 +90,7 @@ def validateLogin():
  
  
         if len(data) > 0:
-	    print(data)
+            print(data)
             if check_password_hash(str(data[0][3]),_password):
                 session['user'] = data[0][0]
                 return redirect('/userHome')
